@@ -1,0 +1,15 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Movie {
+  adult: Boolean!
+  id: Int!
+  original_title: String!
+  popularity: Float!
+  video: Boolean!
+}
+
+type Query {
+  movies: [Movie!]!
+}

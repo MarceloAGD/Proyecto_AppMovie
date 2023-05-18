@@ -3,13 +3,13 @@
 # ------------------------------------------------------
 
 type Movie {
-  adult: Boolean!
-  id: Int!
+  adult: String
+  id: Float!
   original_title: String!
   popularity: Float!
-  video: Boolean!
+  video: String
 }
 
 type Query {
-  movies: [Movie!]!
+  getMovies: [Movie!]!
 }

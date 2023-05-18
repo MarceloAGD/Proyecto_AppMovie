@@ -1,26 +1,26 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { ObjectType, Field, Int, Float} from '@nestjs/graphql';
 
 @Entity()
 @ObjectType()
 export class Movie{
     @Column()
-    @Field()
-    adult: boolean;
+    @Field({nullable: true})
+    adult: string;
 
-    @PrimaryGeneratedColumn()
-    @Field((type) => Int)
+    @PrimaryColumn()
+    @Field()
     id: number;
 
     @Column()
     @Field()
     original_title: string;
 
-    @Column()
+    @Column({type: 'decimal'})
     @Field((type) => Float)
     popularity: number;
 
     @Column()
-    @Field()
-    video: boolean;
+    @Field({nullable: true})
+    video: string;
 }

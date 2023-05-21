@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { MoviesModule } from './movies/movies.module';
+import { PlaylistsModule } from './playlists/playlists.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MoviesModule } from './movies/movies.module';
       synchronize: true,
     }),
     MoviesModule,
+    PlaylistsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

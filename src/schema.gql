@@ -10,6 +10,25 @@ type Movie {
   video: String
 }
 
+type Users {
+  id: Int!
+  email: String!
+  name: String!
+  password: String!
+}
+
 type Query {
   getMovies: [Movie!]!
+  users: [Users!]!
+  user(email: String!, password: String!): Users!
+}
+
+type Mutation {
+  createUser(userInput: CreateUserInput!): Users!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
 }

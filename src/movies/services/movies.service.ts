@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {Movie} from './movie.entity';
+import {Movie} from '../entities/movie.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 

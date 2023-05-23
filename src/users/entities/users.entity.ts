@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn , Unique } from 'typeorm';
+import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn , Unique, BaseEntity } from 'typeorm';
 import { ObjectType, Field, Int, Float} from '@nestjs/graphql';
 
 @Entity()
 @ObjectType()
-export class Users {
+export class Users extends BaseEntity{
     @PrimaryGeneratedColumn()
     @Field((type) => Int)
     id: number;

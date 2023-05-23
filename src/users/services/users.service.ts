@@ -25,7 +25,7 @@ export class UsersService {
     createUser(user: CreateUserInput): Promise<Users>{
         const newUser = this.usersRepository.create(user)
         return this.usersRepository.save(newUser)
-    }Ñ
+    }
 }
 
 

@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, BaseEntity } from 'typeorm';
 import { ObjectType, Field, Int, Float} from '@nestjs/graphql';
 
 @Entity()
 @ObjectType()
-export class Movie{
+export class Movie extends BaseEntity{
     @Column()
     @Field({nullable: true})
     adult: string;

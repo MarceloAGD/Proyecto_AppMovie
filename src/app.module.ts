@@ -3,10 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { MoviesModule } from './movies/movies.module';
 import { PlaylistsModule } from './playlists/playlists.module';
+import { ConfigModule } from './config/config.module';
+import { DatabaseModule } from './database/database.module';
+import { ConfigService } from './config/config.service';
+import { Configuration } from './config/config.keys';
+import { UsersModule } from './users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -23,11 +28,21 @@ import { PlaylistsModule } from './playlists/playlists.module';
       database: 'movieDB',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
+      
     }),
     MoviesModule,
     PlaylistsModule,
+    ConfigModule,
+    DatabaseModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  static port: number | string;
+
+  constructor(private readonly _configService: ConfigService ){
+    AppModule.port = this._configService.get(Configuration.PORT)
+  }
+}

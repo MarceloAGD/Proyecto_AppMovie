@@ -1,15 +1,16 @@
-import { Entity, Column, PrimaryColumn, BaseEntity } from 'typeorm';
+import { Entity, Column, PrimaryColumn, BaseEntity, ManyToMany } from 'typeorm';
 import { ObjectType, Field, Int, Float} from '@nestjs/graphql';
+import { Playlist } from 'src/playlists/entities/playlist.entity';
 
 @Entity()
 @ObjectType()
-export class Movie extends BaseEntity{
+export class Movie{
     @Column()
     @Field({nullable: true})
     adult: string;
 
-    @PrimaryColumn()
-    @Field()
+    @PrimaryColumn({type: 'int'})
+    @Field((type) => Int)
     id: number;
 
     @Column()
@@ -23,4 +24,5 @@ export class Movie extends BaseEntity{
     @Column()
     @Field({nullable: true})
     video: string;
+
 }

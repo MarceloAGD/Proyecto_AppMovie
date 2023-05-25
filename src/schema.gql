@@ -4,10 +4,16 @@
 
 type Movie {
   adult: String
-  id: Float!
+  id: Int!
   original_title: String!
   popularity: Float!
   video: String
+}
+
+type Playlist {
+  idPlaylist: Int!
+  name: String!
+  movies: [Movie!]!
 }
 
 type Users {
@@ -18,13 +24,22 @@ type Users {
 }
 
 type Query {
-  getMovies: [Movie!]!
+  Movies: [Movie!]!
+  MovieId(id: Float!): Movie!
+  Playlists: [Playlist!]!
   users: [Users!]!
   user(email: String!, password: String!): Users!
 }
 
 type Mutation {
+  createPlaylist(playlistInput: CreatePlaylistInput!): Playlist!
+  updatePlaylist(idPlaylist: Float!, idMovie: Float!): Playlist!
   createUser(userInput: CreateUserInput!): Users!
+}
+
+input CreatePlaylistInput {
+  name: String!
+  movieId: Float!
 }
 
 input CreateUserInput {

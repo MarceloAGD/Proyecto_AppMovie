@@ -7,14 +7,15 @@ import {Movie} from './entities/movie.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Movie])],
-  providers: [MoviesService, MoviesResolver]
+  providers: [MoviesService, MoviesResolver],
+  exports: [MoviesService],
 })
 
 export class MoviesModule implements OnModuleInit{
   constructor(private readonly movieService: MoviesService){}
     
     async onModuleInit(){
-      await this.movieService.cargaDatosDesdeJSON();
+      await this.movieService.loadMovieJSON();
     }
   
 }

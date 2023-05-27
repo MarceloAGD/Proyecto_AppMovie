@@ -17,4 +17,8 @@ export class Movie{
     @Field()
     overview: string;
 
+    @Column()
+    @Field()
+    poster_path: string;
+
 }

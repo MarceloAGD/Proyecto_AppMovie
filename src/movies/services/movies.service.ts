@@ -55,6 +55,7 @@ export class MoviesService {
           id: movieId.id,
           original_title: movieId.original_title,
           overview: movieData.overview,
+          poster_path: movieData.poster_path || '',
           casts: castData, // Asigna los datos de los casts aquí
         };        
         await this.insertMovie(createMovieInput);

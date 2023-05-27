@@ -6,6 +6,7 @@ type Movie {
   id: Int!
   original_title: String!
   overview: String!
+  poster_path: String!
 }
 
 type Casts {

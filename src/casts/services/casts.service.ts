@@ -25,8 +25,6 @@ export class CastsService {
   async getCasts(): Promise<Casts[]> {
     return this.castsRepository.find();
   }
-
-
   
   async getAllCastsById(id: number): Promise<Casts[]> {
     return this.castsRepository.find({ where: { id } });

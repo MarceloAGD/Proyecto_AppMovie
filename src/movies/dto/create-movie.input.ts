@@ -24,5 +24,7 @@ export class CreateNovieInput{
     @Field()
     overview: string;
 
+    @Field()
+    poster_path: string;
 
 }

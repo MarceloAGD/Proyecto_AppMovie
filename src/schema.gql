@@ -3,11 +3,9 @@
 # ------------------------------------------------------
 
 type Movie {
-  adult: String
   id: Int!
   original_title: String!
-  popularity: Float!
-  video: String
+  overview: String!
 }
 
 type Playlist {

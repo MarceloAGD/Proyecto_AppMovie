@@ -5,6 +5,7 @@ import { Movie } from '../entities/movie.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CreateNovieInput } from '../dto/create-movie.input';
+import axios from 'axios';
 
 @Injectable()
 export class MoviesService {
@@ -24,9 +25,16 @@ export class MoviesService {
         path.resolve('src/json/movie_ids_05_15_2023.json'),
         'utf-8',
       );
-      const movies: Movie[] = JSON.parse(data);
-      for (const movie of movies) {
-        await this.insertMovie(movie);
+      const movieIds: any[] = JSON.parse(data);
+      for (const movieId of movieIds) {
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId.id}?api_key=ae050d333acebfc9feca36ee007931ce`);
+        const movieData = response.data;
+        const createMovieInput: CreateNovieInput = {
+          id: movieId.id,
+          original_title: movieId.original_title,
+          overview: movieData.overview
+        };
+        await this.insertMovie(createMovieInput);
       }
       return true;
     } catch (err) {

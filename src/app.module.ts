@@ -12,6 +12,8 @@ import { ConfigService } from './config/config.service';
 import { Configuration } from './config/config.keys';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CastsModule } from './casts/casts.module';
+
 
 @Module({
   imports: [
@@ -34,7 +36,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     PlaylistsModule,
     ConfigModule,
     DatabaseModule,
-    UsersModule
+    UsersModule,
+    CastsModule
   ],
   controllers: [AppController],
   providers: [AppService],

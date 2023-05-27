@@ -1,14 +1,10 @@
-import { Entity, Column, PrimaryColumn, BaseEntity, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, BaseEntity, ManyToMany, JoinTable } from 'typeorm';
 import { ObjectType, Field, Int, Float} from '@nestjs/graphql';
-import { Playlist } from 'src/playlists/entities/playlist.entity';
+import { Casts } from 'src/casts/entities/casts.entity';
 
 @Entity()
 @ObjectType()
 export class Movie{
-    @Column()
-    @Field({nullable: true})
-    adult: string;
-
     @PrimaryColumn({type: 'int'})
     @Field((type) => Int)
     id: number;
@@ -17,12 +13,13 @@ export class Movie{
     @Field()
     original_title: string;
 
-    @Column({type: 'decimal'})
-    @Field((type) => Float)
-    popularity: number;
-
     @Column()
-    @Field({nullable: true})
-    video: string;
+    @Field()
+    overview: string;
 
+    @ManyToMany(() => Casts, Casts => Casts.movies)
+    @JoinTable({
+        name: 'movie_cast', // Custom table name
+        })
+    casts: Casts[];
 }

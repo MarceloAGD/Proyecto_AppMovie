@@ -8,6 +8,13 @@ type Movie {
   overview: String!
 }
 
+type Casts {
+  idCast: Int!
+  id: Int!
+  actor: String!
+  character: String!
+}
+
 type Playlist {
   idPlaylist: Int!
   name: String!
@@ -27,6 +34,8 @@ type Query {
   Playlists: [Playlist!]!
   users: [Users!]!
   user(email: String!, password: String!): Users!
+  casts: [Casts!]!
+  getAllCastsById(id: Int!): [Casts!]!
 }
 
 type Mutation {

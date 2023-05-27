@@ -17,9 +17,4 @@ export class Movie{
     @Field()
     overview: string;
 
-    @ManyToMany(() => Casts, Casts => Casts.movies)
-    @JoinTable({
-        name: 'movie_cast', // Custom table name
-        })
-    casts: Casts[];
 }

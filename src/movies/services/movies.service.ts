@@ -35,11 +35,11 @@ export class MoviesService {
     }
   }
 
-  async getMovies(): Promise<Movie[]> {
+  async findAll(): Promise<Movie[]> {
     return this.movieRepository.find();
   }
 
-  async getMovieId(id: number): Promise<Movie>{
+  async findOne(id: number): Promise<Movie>{
     return this.movieRepository.findOne({
       where: {
         id,

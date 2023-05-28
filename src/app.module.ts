@@ -30,11 +30,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
       
     }),
+    UsersModule,
     MoviesModule,
     PlaylistsModule,
     ConfigModule,
     DatabaseModule,
-    UsersModule
+    
   ],
   controllers: [AppController],
   providers: [AppService],

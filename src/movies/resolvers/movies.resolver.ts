@@ -9,11 +9,11 @@ export class MoviesResolver {
 
     @Query(() => [Movie])
     async Movies() {
-        return this.movieService.getMovies();
+        return this.movieService.findAll();
     }
 
     @Query(() => Movie)
     MovieId(@Args('id') id: number): Promise<Movie>{
-        return this.movieService.getMovieId(id);
+        return this.movieService.findOne(id);
     }
 }

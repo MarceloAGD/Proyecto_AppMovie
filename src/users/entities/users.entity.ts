@@ -1,9 +1,10 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn , Unique, BaseEntity } from 'typeorm';
-import { ObjectType, Field, Int, Float} from '@nestjs/graphql';
+import { Entity, Column, PrimaryGeneratedColumn , Unique, BaseEntity, OneToMany } from 'typeorm';
+import { ObjectType, Field, Int} from '@nestjs/graphql';
+import { Playlist } from 'src/playlists/entities/playlist.entity';
 
 @Entity()
 @ObjectType()
-export class Users extends BaseEntity{
+export class Users{
     @PrimaryGeneratedColumn()
     @Field((type) => Int)
     id: number;
@@ -20,6 +21,10 @@ export class Users extends BaseEntity{
     @Column()
     @Field()
     password: string;
+
+    @OneToMany(() => Playlist, (playlist) => playlist.users)
+    @Field(() => [Playlist], {nullable: true})
+    playlists: Playlist[];
 }
     
 

@@ -2,9 +2,9 @@ import { Args, Mutation, Resolver,Query, ResolveField, Parent } from '@nestjs/gr
 import { PlaylistsService } from '../services/playlists.service';
 import { CreatePlaylistInput } from '../dto/create-playlist.input';
 import { Playlist } from '../entities/playlist.entity';
-import { Movie } from 'src/movies/entities/movie.entity';
+import { Users } from 'src/users/entities/users.entity';
 
-@Resolver()
+@Resolver(() => Playlist)
 export class PlaylistsResolver {
     constructor(private playlistService: PlaylistsService){}
         
@@ -20,7 +20,11 @@ export class PlaylistsResolver {
 
     @Query(() => [Playlist])
     Playlists() {
-        return this.playlistService.getPlaylist();
+        return this.playlistService.findAll();
     }
 
+    @ResolveField(() => Users)
+    user(@Parent() playlist: Playlist): Promise<Users>{
+        return this.playlistService.getUser(playlist.usersId)
+    }
 }

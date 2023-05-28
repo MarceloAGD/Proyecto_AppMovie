@@ -1,12 +1,16 @@
-import { Resolver} from '@nestjs/graphql';
+import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
 import { Query , Mutation, Args} from '@nestjs/graphql'
 import { UsersService } from '../services/users.service';
 import { Users } from '../entities/users.entity';
 import { CreateUserInput } from '../dto/create-user.input';
+import { Playlist } from 'src/playlists/entities/playlist.entity';
+import { PlaylistsService } from 'src/playlists/services/playlists.service';
+import { Inject, forwardRef } from '@nestjs/common';
 
-@Resolver()
+@Resolver(()=> Users)
 export class UsersResolver {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,) {}
 
   @Query((returns) => [Users])
   users(){
@@ -17,8 +21,6 @@ export class UsersResolver {
   user(@Args('email') email: string, @Args('password') password: string) {
     return this.usersService.findUserByEmailPassword(email, password);
   }
-  
-  
 
   @Mutation((returns) => Users)
   createUser(@Args('userInput') userInput: CreateUserInput){

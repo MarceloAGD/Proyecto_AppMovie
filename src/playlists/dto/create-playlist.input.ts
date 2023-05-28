@@ -8,5 +8,6 @@ export class CreatePlaylistInput{
 
     @IsInt()
     @Field()
-    movieId?: number;
+    usersId: number;
+    
 }

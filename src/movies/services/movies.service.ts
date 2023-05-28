@@ -9,11 +9,14 @@ import { CreateNovieInput } from '../dto/create-movie.input';
 @Injectable()
 export class MoviesService {
   constructor(
-    @InjectRepository(Movie) private movieRepository: Repository<Movie>,
+    @InjectRepository(Movie) 
+    private movieRepository: Repository<Movie>,
+    
   ) {}
 
   async insertMovie(createMovieInput: CreateNovieInput): Promise<Movie> {
     const newMovie = this.movieRepository.create(createMovieInput);
+
     await this.movieRepository.save(newMovie);
     return newMovie;
   }

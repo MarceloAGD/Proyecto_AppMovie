@@ -33,6 +33,7 @@ type Query {
   Movies: [Movie!]!
   MovieId(id: Float!): Movie!
   Playlists: [Playlist!]!
+  Playlist(userId: Float!): [Playlist!]!
 }
 
 type Mutation {

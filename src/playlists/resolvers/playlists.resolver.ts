@@ -23,6 +23,11 @@ export class PlaylistsResolver {
         return this.playlistService.findAll();
     }
 
+    @Query((returns) => [Playlist])
+    Playlist(@Args('userId') userId: number){
+        return this.playlistService.getPlaylistByUser(userId);
+    }
+
     @ResolveField(() => Users)
     user(@Parent() playlist: Playlist): Promise<Users>{
         return this.playlistService.getUser(playlist.usersId)

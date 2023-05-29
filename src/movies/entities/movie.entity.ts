@@ -1,7 +1,6 @@
 import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany} from 'typeorm';
 import { ObjectType, Field, Int} from '@nestjs/graphql';
 import { Playlist } from 'src/playlists/entities/playlist.entity';
-import { Actor } from 'src/actors/entities/actor.entity';
 import { Cast } from 'src/casts/entities/cast.entity';
 
 @Entity()
@@ -28,7 +27,7 @@ export class Movie{
     @Field(() => [Playlist])
     playlists: Playlist[];
 
-    @OneToMany(() => Cast, actor => actor.movie)
+    @OneToMany(() => Cast, cast => cast.movie)
     @Field(() => [Cast],{nullable: true})
     cast: Cast[];
 

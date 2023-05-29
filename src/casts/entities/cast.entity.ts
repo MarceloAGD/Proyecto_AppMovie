@@ -13,26 +13,26 @@ export class Cast{
 
     @Column()
     @Field((type) => Int, {nullable: true})
-    cast_id?: number;
+    cast_id: number;
 
     @Column()
     @Field({nullable: true})
-    character?: string;
+    character: string;
 
     @Column()
     @Field((type) => Int, {nullable: true})
-    idActor?: number;
+    idActor: number;
 
     @Column()
     @Field({nullable: true})
-    nameActor?: string;
+    nameActor: string;
 
     @ManyToOne(() => Actor, actor => actor.cast)
-    @Field({nullable:true})
+    @Field(() => Actor, {nullable:true})
     actor: Actor;
 
     @ManyToOne(() => Movie, movie => movie.cast)
-    @Field({nullable: true})
+    @Field(() => Movie,{nullable:true})
     movie: Movie;
 
 }

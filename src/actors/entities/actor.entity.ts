@@ -15,8 +15,8 @@ export class Actor{
     @Field({nullable: true})
     name: string;
 
-    @OneToMany(() => Cast, movie => movie.actor)
+    @OneToMany(() => Cast, cast => cast.actor)
     @Field(() => [Cast],{nullable: true})
-    cast: Cast[];
+    cast?: Cast[];
 
 }

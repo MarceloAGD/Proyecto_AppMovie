@@ -1,4 +1,4 @@
-import { Module, OnModuleInit, forwardRef } from '@nestjs/common';
+import { Module, forwardRef} from '@nestjs/common';
 import { MoviesService } from './services/movies.service';
 import { MoviesResolver } from './resolvers/movies.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,14 +9,8 @@ import { Cast } from 'src/casts/entities/cast.entity';
 import { Actor } from 'src/actors/entities/actor.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie, Cast, Actor]), ActorsModule, CastsModule],
+  imports: [TypeOrmModule.forFeature([Movie, Cast, Actor]), ActorsModule, forwardRef(() => CastsModule)],
   providers: [MoviesService, MoviesResolver],
   exports: [MoviesService],
 })
-export class MoviesModule implements OnModuleInit {
-  constructor(private readonly movieService: MoviesService) {}
-
-  async onModuleInit() {
-    await this.movieService.loadMovieJSON();
-  }
-}
+export class MoviesModule {}

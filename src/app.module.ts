@@ -21,11 +21,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'silly.db.elephantsql.com',
       port: 5432,
-      username: 'postgres',
-      password: '7211',
-      database: 'movieDB',
+      username: 'szayqztc',
+      password: 'ujDtQwXZ_0Vh5gqfDz3zQWIOgQbSOgNI',
+      database: 'szayqztc',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       

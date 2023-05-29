@@ -1,0 +1,8 @@
+Server	silly.db.elephantsql.com (silly-01)
+Region	amazon-web-services::sa-east-1
+Created at	2023-05-28 18:53 UTC+00:00
+User & Default database	szayqztc
+Password	ujDtQwXZ_0Vh5gqfDz3zQWIOgQbSOgNI 
+URL	postgres://szayqztc:ujDtQwXZ_0Vh5gqfDz3zQWIOgQbSOgNI@silly.db.elephantsql.com/szayqztc 
+Current database size	352 KB
+Max database size   500MB

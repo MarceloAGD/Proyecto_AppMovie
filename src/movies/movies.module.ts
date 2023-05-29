@@ -15,7 +15,7 @@ export class MoviesModule implements OnModuleInit{
   constructor(private readonly movieService: MoviesService){}
     
     async onModuleInit(){
-      await this.movieService.loadMovieJSON();
+      //await this.movieService.loadMovieJSON();
     }
   
 }

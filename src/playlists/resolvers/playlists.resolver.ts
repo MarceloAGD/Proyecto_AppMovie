@@ -27,4 +27,9 @@ export class PlaylistsResolver {
     user(@Parent() playlist: Playlist): Promise<Users>{
         return this.playlistService.getUser(playlist.usersId)
     }
+
+    @Query((returns) => [Playlist])
+    Playlist(@Args('userId') userId: number){
+        return this.playlistService.getPlaylistByUser(userId);
+    }
 }

@@ -5,9 +5,6 @@ import { Playlist } from 'src/playlists/entities/playlist.entity';
 @Entity()
 @ObjectType()
 export class Movie{
-    @Column()
-    @Field({nullable: true})
-    adult: string;
 
     @PrimaryColumn({type: 'int'})
     @Field((type) => Int)
@@ -17,12 +14,11 @@ export class Movie{
     @Field()
     original_title: string;
 
-    @Column({type: 'decimal'})
-    @Field((type) => Float)
-    popularity: number;
+    @Column()
+    @Field()
+    overview: string;
 
     @Column()
-    @Field({nullable: true})
-    video: string;
-
+    @Field()
+    poster_path: string;
 }

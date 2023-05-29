@@ -3,19 +3,16 @@ import { Field, InputType } from "@nestjs/graphql";
 @InputType()
 export class CreateNovieInput{
     @Field()
-    adult: string;
-
-    @Field()
     id: number;
 
     @Field()
     original_title: string;
 
     @Field()
-    popularity: number;
+    overview: string;
 
     @Field()
-    video: string;
+    poster_path: string;
 
 
 }

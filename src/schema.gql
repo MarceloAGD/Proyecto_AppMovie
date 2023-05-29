@@ -3,11 +3,10 @@
 # ------------------------------------------------------
 
 type Movie {
-  adult: String
   id: Int!
   original_title: String!
-  popularity: Float!
-  video: String
+  overview: String!
+  poster_path: String!
 }
 
 type Users {
@@ -33,6 +32,7 @@ type Query {
   Movies: [Movie!]!
   MovieId(id: Float!): Movie!
   Playlists: [Playlist!]!
+  Playlist(userId: Float!): [Playlist!]!
 }
 
 type Mutation {

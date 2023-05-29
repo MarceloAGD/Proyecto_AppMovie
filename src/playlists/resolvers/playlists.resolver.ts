@@ -1,8 +1,10 @@
 import { Args, Mutation, Resolver,Query, ResolveField, Parent } from '@nestjs/graphql';
 import { PlaylistsService } from '../services/playlists.service';
 import { CreatePlaylistInput } from '../dto/create-playlist.input';
+import * as update from '../dto/update-playlist.input';
 import { Playlist } from '../entities/playlist.entity';
 import { Users } from 'src/users/entities/users.entity';
+
 
 @Resolver(() => Playlist)
 export class PlaylistsResolver {
@@ -14,8 +16,8 @@ export class PlaylistsResolver {
     }
 
     @Mutation((returns) => Playlist)
-    updatePlaylist(@Args('idPlaylist') idPlaylist: number, @Args('idMovie') idMovie: number){
-        return this.playlistService.addMoviePlaylist(idPlaylist,idMovie);
+    updatePlaylist(@Args('playlistInput') playlistInput: update.addMoviePlaylistInput){
+        return this.playlistService.addMoviePlaylist(playlistInput);
     }
 
     @Query(() => [Playlist])
@@ -31,5 +33,10 @@ export class PlaylistsResolver {
     @ResolveField(() => Users)
     user(@Parent() playlist: Playlist): Promise<Users>{
         return this.playlistService.getUser(playlist.usersId)
+    }
+
+    @Mutation(() => Playlist)
+    removeMovie(@Args('playlistInput') playlistinput: update.DeleteMoviePlaylistInput){
+        return this.playlistService.removeMoviePlaylist(playlistinput)
     }
 }

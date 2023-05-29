@@ -2,14 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Movie {
-  adult: String
-  id: Int!
-  original_title: String!
-  popularity: Float!
-  video: String
-}
-
 type Users {
   id: Int!
   email: String!
@@ -27,11 +19,38 @@ type Playlist {
   user: Users!
 }
 
+type Actor {
+  id: Int
+  name: String
+  movies: [Movie!]
+}
+
+type Movie {
+  id: Int!
+  title: String!
+  poster_path: String!
+  overview: String!
+  playlists: [Playlist!]!
+  actors: [Actor!]
+}
+
+type Cast {
+  idCast: Int!
+  cast_id: Int
+  character: String
+  idActor: Int
+  nameActor: String
+  actor: Actor
+  movie: Movie
+}
+
 type Query {
   users: [Users!]!
   user(email: String!, password: String!): Users!
   Movies: [Movie!]!
   MovieId(id: Float!): Movie!
+  Actors: [Actor!]!
+  Casts: [Cast!]!
   Playlists: [Playlist!]!
   Playlist(userId: Float!): [Playlist!]!
 }
@@ -39,7 +58,8 @@ type Query {
 type Mutation {
   createUser(userInput: CreateUserInput!): Users!
   createPlaylist(playlistInput: CreatePlaylistInput!): Playlist!
-  updatePlaylist(idPlaylist: Float!, idMovie: Float!): Playlist!
+  updatePlaylist(playlistInput: addMoviePlaylistInput!): Playlist!
+  removeMovie(playlistInput: DeleteMoviePlaylistInput!): Playlist!
 }
 
 input CreateUserInput {
@@ -51,4 +71,14 @@ input CreateUserInput {
 input CreatePlaylistInput {
   name: String!
   usersId: Float!
+}
+
+input addMoviePlaylistInput {
+  idPlaylist: Float!
+  id: Float!
+}
+
+input DeleteMoviePlaylistInput {
+  idPlaylist: Float!
+  id: Float!
 }

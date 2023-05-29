@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
@@ -12,6 +10,8 @@ import { ConfigService } from './config/config.service';
 import { Configuration } from './config/config.keys';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ActorsModule } from './actors/actors.module';
+import { CastsModule } from './casts/casts.module';
 
 @Module({
   imports: [
@@ -32,13 +32,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     UsersModule,
     MoviesModule,
+    ActorsModule,
+    CastsModule,
     PlaylistsModule,
     ConfigModule,
     DatabaseModule,
     
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {
   static port: number | string;

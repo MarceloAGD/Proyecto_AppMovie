@@ -5,22 +5,73 @@ import { Movie } from '../entities/movie.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CreateNovieInput } from '../dto/create-movie.input';
+import { ActorsService } from 'src/actors/services/actors.service';
+import axios from 'axios';
+import { CastsService } from 'src/casts/services/casts.service';
+import { Cast } from 'src/casts/entities/cast.entity';
+import { Actor } from 'src/actors/entities/actor.entity';
+import { CreateActorInput } from 'src/actors/dto/create-actor.input';
 
 @Injectable()
 export class MoviesService {
   constructor(
     @InjectRepository(Movie) 
     private movieRepository: Repository<Movie>,
+    @InjectRepository(Actor) 
+    private actorsRepository: Repository<Actor>,
+    @InjectRepository(Cast) 
+    private castsRepository: Repository<Cast>,
+
+    private actorsService: ActorsService,
     
   ) {}
 
-  async insertMovie(createMovieInput: CreateNovieInput): Promise<Movie> {
-    const newMovie = this.movieRepository.create(createMovieInput);
-
-    await this.movieRepository.save(newMovie);
-    return newMovie;
+  private readonly apiKey = 'af1dbaa6b5d12e6c57238078125686d4';
+  async getDetailMovie(id: number){
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}`;
+    const response = await axios.get(url);
+    return response.data;
   }
 
+  async getCreditMovie(id:number){
+    const url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.apiKey}`;
+    const response = await axios.get(url)
+    return response.data;
+  }
+
+  async insertMovie(createMovieInput: CreateNovieInput): Promise<Movie> {
+    const newMovie = new Movie();
+    newMovie.id = createMovieInput.id;
+    newMovie.poster_path=createMovieInput.poster_path || "";
+    newMovie.overview =createMovieInput.overview || "";
+    newMovie.title=createMovieInput.title;
+
+    return this.movieRepository.save(newMovie);
+  }
+
+  async addActor(createActor: CreateActorInput): Promise<Actor>{
+    const newActor = this.actorsRepository.create(createActor)
+
+    return this.actorsRepository.save(newActor)
+  }
+
+  async addActorCast(idActor: number, id: number, character: string, cast_id: number): Promise<Cast>{
+    const actor = await this.actorsService.findOne(idActor);
+    const movie = await this.findOne(id);
+
+    const cast = new Cast();
+    cast.actor = actor;
+    cast.movie = movie;
+    cast.cast_id = cast_id;
+    cast.character = character;
+    cast.idActor = idActor;
+    cast.nameActor =actor.name; 
+    await this.castsRepository.save(cast);
+
+    return cast;
+    
+  
+}
   async loadMovieJSON(): Promise<boolean> {
     try {
       const data = fs.readFileSync(
@@ -29,7 +80,21 @@ export class MoviesService {
       );
       const movies: Movie[] = JSON.parse(data);
       for (const movie of movies) {
-        await this.insertMovie(movie);
+        const movieData = this.getDetailMovie(movie.id);
+        const creditData = this.getCreditMovie(movie.id);
+
+        const moviesDetail = await movieData;
+        const creditDetail = await creditData;
+
+        await this.insertMovie(moviesDetail);
+
+        const castData = creditDetail.cast;
+
+        for (const data of castData){  
+          await this.addActor(data);
+          await this.addActorCast(data.id, movie.id, data.character, data.cast_id);
+        }
+        
       }
       return true;
     } catch (err) {

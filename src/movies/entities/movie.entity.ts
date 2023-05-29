@@ -1,13 +1,12 @@
-import { Entity, Column, PrimaryColumn, BaseEntity, ManyToMany } from 'typeorm';
-import { ObjectType, Field, Int, Float} from '@nestjs/graphql';
+import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany} from 'typeorm';
+import { ObjectType, Field, Int} from '@nestjs/graphql';
 import { Playlist } from 'src/playlists/entities/playlist.entity';
+import { Actor } from 'src/actors/entities/actor.entity';
+import { Cast } from 'src/casts/entities/cast.entity';
 
 @Entity()
 @ObjectType()
 export class Movie{
-    @Column()
-    @Field({nullable: true})
-    adult: string;
 
     @PrimaryColumn({type: 'int'})
     @Field((type) => Int)
@@ -15,14 +14,22 @@ export class Movie{
 
     @Column()
     @Field()
-    original_title: string;
-
-    @Column({type: 'decimal'})
-    @Field((type) => Float)
-    popularity: number;
+    title: string;
 
     @Column()
     @Field({nullable: true})
-    video: string;
+    poster_path: string;
+
+    @Column()
+    @Field({nullable: true})
+    overview: string;
+
+    @ManyToMany(() => Playlist, playlist => playlist.movies)
+    @Field(() => [Playlist])
+    playlists: Playlist[];
+
+    @OneToMany(() => Cast, actor => actor.movie)
+    @Field(() => [Cast],{nullable: true})
+    cast: Cast[];
 
 }

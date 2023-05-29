@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn , Unique, BaseEntity, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn , Unique, OneToMany } from 'typeorm';
 import { ObjectType, Field, Int} from '@nestjs/graphql';
 import { Playlist } from 'src/playlists/entities/playlist.entity';
 

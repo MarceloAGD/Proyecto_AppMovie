@@ -15,7 +15,7 @@ export class Playlist{
     @Field()
     name: string;
 
-    @ManyToMany(() => Movie)
+    @ManyToMany(() => Movie, movie => movie.playlists)
     @JoinTable({
         name: "playlist_detail"
     })

@@ -6,6 +6,8 @@ import { CreatePlaylistInput } from '../dto/create-playlist.input';
 import { MoviesService } from 'src/movies/services/movies.service';
 import { UsersService } from 'src/users/services/users.service';
 import { Users } from 'src/users/entities/users.entity';
+import * as update from '../dto/update-playlist.input';
+
 
 @Injectable()
 export class PlaylistsService {
@@ -36,9 +38,10 @@ export class PlaylistsService {
         return this.playlistsRepository.save(newPlaylist);
     }
 
-    async addMoviePlaylist(idPlaylist: number, id: number){
+    async addMoviePlaylist(update: update.addMoviePlaylistInput): Promise<Playlist>{
+        const idPlaylist = update.idPlaylist;
         const playlist = await this.playlistsRepository.findOne({where:{idPlaylist},relations:['movies']});
-        const movie = await this.moviesService.findOne(id);
+        const movie = await this.moviesService.findOne(update.id);
 
         if(playlist.movies){
             playlist.movies.push(movie)
@@ -46,5 +49,15 @@ export class PlaylistsService {
         }
     }
 
+    async removeMoviePlaylist(remove: update.DeleteMoviePlaylistInput): Promise<Playlist> {
+        const idPlaylist = remove.idPlaylist
+        const playlist = await this.playlistsRepository.findOne({ where: { idPlaylist }, relations: ['movies'] });
+        const movie = await this.moviesService.findOne(remove.id);
+                    
+        playlist.movies = playlist.movies.filter((movieItem) => movieItem.id !== movie.id);
+
+        return this.playlistsRepository.save(playlist);
+
+    }
 
 }

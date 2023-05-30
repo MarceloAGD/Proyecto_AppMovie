@@ -4,6 +4,7 @@ import { CreatePlaylistInput } from '../dto/create-playlist.input';
 import * as update from '../dto/update-playlist.input';
 import { Playlist } from '../entities/playlist.entity';
 import { Users } from 'src/users/entities/users.entity';
+import { deletePlaylistInput } from '../dto/delete-playlist.input';
 
 
 @Resolver(() => Playlist)
@@ -35,8 +36,13 @@ export class PlaylistsResolver {
         return this.playlistService.getUser(playlist.usersId)
     }
 
-    @Mutation(() => Playlist)
-    removeMovie(@Args('playlistInput') playlistinput: update.DeleteMoviePlaylistInput){
-        return this.playlistService.removeMoviePlaylist(playlistinput)
+    @Mutation(returns => Boolean)
+    removeMoviePlaylist(@Args('playlistInput') playlistInput: update.DeleteMoviePlaylistInput): Promise<boolean>{
+        return this.playlistService.removeMoviePlaylist(playlistInput);
+    }
+
+    @Mutation(returns => Boolean)
+    deletePlaylist(@Args('playlistInput') playlistInput: deletePlaylistInput): Promise<boolean>{
+        return this.playlistService.deletePlaylist(playlistInput);
     }
 }

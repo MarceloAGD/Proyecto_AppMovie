@@ -1,8 +1,9 @@
-import { Resolver ,Query} from '@nestjs/graphql';
+import { Resolver ,Query, ResolveField, Parent, Args} from '@nestjs/graphql';
 import { CastsService } from '../services/casts.service';
 import { Cast } from '../entities/cast.entity';
+import { Actor } from 'src/actors/entities/actor.entity';
 
-@Resolver()
+@Resolver(() => Cast)
 export class CastsResolver {
     constructor(private castsService: CastsService){}
     
@@ -10,4 +11,10 @@ export class CastsResolver {
     Casts(){
         return this.castsService.findAll();
     }
+
+    @Query(() => Cast)
+    Cast(@Args('idCast') idCast: number){
+        return this.castsService.findOne(idCast);
+    }
+
 }

@@ -25,6 +25,6 @@ export class ActorsService {
         });
       }
     async findAll(): Promise<Actor[]> {
-        return this.actorsRepository.find();
+        return this.actorsRepository.find({relations:['cast']});
     }
 }

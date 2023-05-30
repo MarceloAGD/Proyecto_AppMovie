@@ -7,6 +7,7 @@ import { MoviesService } from 'src/movies/services/movies.service';
 import { UsersService } from 'src/users/services/users.service';
 import { Users } from 'src/users/entities/users.entity';
 import * as update from '../dto/update-playlist.input';
+import { deletePlaylistInput } from '../dto/delete-playlist.input';
 
 
 @Injectable()
@@ -49,15 +50,37 @@ export class PlaylistsService {
         }
     }
 
-    async removeMoviePlaylist(remove: update.DeleteMoviePlaylistInput): Promise<Playlist> {
-        const idPlaylist = remove.idPlaylist
-        const playlist = await this.playlistsRepository.findOne({ where: { idPlaylist }, relations: ['movies'] });
-        const movie = await this.moviesService.findOne(remove.id);
-                    
-        playlist.movies = playlist.movies.filter((movieItem) => movieItem.id !== movie.id);
+    async removeMoviePlaylist(remove: update.DeleteMoviePlaylistInput): Promise<boolean> {
+        try{
+            const playlist = await this.playlistsRepository.findOne({ where: { idPlaylist: remove.idPlaylist}, relations: ['movies'] });
+            const movie = await this.moviesService.findOne(remove.id);
+                        
+            playlist.movies = playlist.movies.filter((movieItem) => movieItem.id !== movie.id);
 
-        return this.playlistsRepository.save(playlist);
+            await this.playlistsRepository.save(playlist);
 
+            return true;
+            
+        }catch (err) {
+            console.error(err);
+            return false;
+        }
+    }
+
+    async deletePlaylist(deletePlaylist: deletePlaylistInput): Promise<boolean>{
+        try{
+            const playlist = await this.playlistsRepository.findOne({where: {idPlaylist: deletePlaylist.idPlaylist, usersId: deletePlaylist.idUser}});
+
+            await this.playlistsRepository.delete(playlist);
+            
+            return true;
+
+        }catch (err) {
+        console.error(err);
+        return false;
+        }
+        
+        
     }
 
 }

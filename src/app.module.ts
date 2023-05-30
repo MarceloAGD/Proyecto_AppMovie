@@ -24,7 +24,7 @@ import { CastsModule } from './casts/casts.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '7211',
+      password: '0605',
       database: 'movieDB',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,

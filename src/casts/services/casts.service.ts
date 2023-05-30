@@ -19,8 +19,8 @@ export class CastsService {
         return this.castsRepository.find({relations: ['movie','actor']});
       }
     
-    async findOne(idCast: number): Promise<Cast>{
-        return this.castsRepository.findOne({where:{idCast}, relations:['movie', 'actor']})
+    async findOne(idMovie: number): Promise<Cast[]>{
+        return this.castsRepository.find({where:{movie:{id:idMovie}}, relations:['movie', 'actor']})
     }
-    
+
 }

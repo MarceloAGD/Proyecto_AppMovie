@@ -6,12 +6,12 @@ import {Movie} from '../entities/movie.entity'
 @Resolver()
 export class MoviesResolver {
     constructor(private movieService: MoviesService) {}
-
+/*
     @Mutation(returns => Boolean)
     async loadData(): Promise<boolean>{
         return this.movieService.loadMovieJSON();
     }
-
+*/
     @Query(() => [Movie])
     async Movies() {
         return this.movieService.findAll();

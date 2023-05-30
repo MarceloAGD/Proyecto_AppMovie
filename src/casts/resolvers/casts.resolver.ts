@@ -12,9 +12,10 @@ export class CastsResolver {
         return this.castsService.findAll();
     }
 
-    @Query(() => Cast)
-    Cast(@Args('idCast') idCast: number){
-        return this.castsService.findOne(idCast);
+    @Query(() => [Cast])
+    Cast(@Args('idMovie') idMovie: number){
+        return this.castsService.findOne(idMovie);
     }
+
 
 }

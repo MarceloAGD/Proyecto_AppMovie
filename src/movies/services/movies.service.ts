@@ -72,6 +72,7 @@ export class MoviesService {
     
   
 }
+/*
   async loadMovieJSON(): Promise<boolean> {
     try {
       const data = fs.readFileSync(
@@ -102,7 +103,7 @@ export class MoviesService {
       return false;
     }
   }
-
+*/
   async findAll(): Promise<Movie[]> {
     return this.movieRepository.find();
   }

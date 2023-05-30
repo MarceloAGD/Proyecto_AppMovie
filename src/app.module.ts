@@ -24,7 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '7211',
+      password: 'casz',
       database: 'movieDB',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,

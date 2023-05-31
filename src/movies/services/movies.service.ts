@@ -26,6 +26,18 @@ export class MoviesService {
     
   ) {}
 
+  async findAll(): Promise<Movie[]> {
+    return this.movieRepository.find();
+  }
+
+  async findOne(id: number): Promise<Movie>{
+    return this.movieRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
   private readonly apiKey = 'af1dbaa6b5d12e6c57238078125686d4';
   async getDetailMovie(id: number){
     const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}`;
@@ -80,19 +92,23 @@ export class MoviesService {
       );
       const movies: Movie[] = JSON.parse(data);
       for (const movie of movies) {
-        const movieData = this.getDetailMovie(movie.id);
-        const creditData = this.getCreditMovie(movie.id);
+        const movieExist = await this.findOne(movie.id)
 
-        const moviesDetail = await movieData;
-        const creditDetail = await creditData;
+        if(!movieExist){
+          const movieData = this.getDetailMovie(movie.id);
+          const creditData = this.getCreditMovie(movie.id);
+  
+          const moviesDetail = await movieData;
+          const creditDetail = await creditData;
 
-        await this.insertMovie(moviesDetail);
+          await this.insertMovie(moviesDetail);
 
-        const castData = creditDetail.cast;
+          const castData = creditDetail.cast;
 
-        for (const data of castData){  
-          await this.addActor(data);
-          await this.addActorCast(data.id, movie.id, data.character, data.cast_id);
+          for (const data of castData){  
+            await this.addActor(data);
+            await this.addActorCast(data.id, movie.id, data.character, data.cast_id);
+          }
         }
         
       }
@@ -103,15 +119,5 @@ export class MoviesService {
     }
   }
 
-  async findAll(): Promise<Movie[]> {
-    return this.movieRepository.find();
-  }
 
-  async findOne(id: number): Promise<Movie>{
-    return this.movieRepository.findOne({
-      where: {
-        id,
-      },
-    });
-  }
 }

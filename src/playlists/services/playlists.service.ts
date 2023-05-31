@@ -80,7 +80,20 @@ export class PlaylistsService {
         return false;
         }
         
-        
     }
 
+    async updatePlaylist(update: update.updatePlaylistInput): Promise<boolean>{
+        try{
+            const playlist = await this.playlistsRepository.findOne({where: {idPlaylist: update.idPlaylist, usersId: update.usersId}, relations:['movies']})
+            playlist.name=update.name;
+
+            await this.playlistsRepository.save(playlist);
+
+            return true;
+
+        }catch (err) {
+            console.error(err);
+            return false;
+        }
+    }
 }

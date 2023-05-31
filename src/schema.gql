@@ -51,7 +51,7 @@ type Query {
   MovieId(id: Float!): Movie!
   Actors: [Actor!]!
   Casts: [Cast!]!
-  Cast(idCast: Float!): Cast!
+  Cast(idMovie: Float!): [Cast!]!
   Playlists: [Playlist!]!
   Playlist(userId: Float!): [Playlist!]!
 }
@@ -60,9 +60,10 @@ type Mutation {
   createUser(userInput: CreateUserInput!): Users!
   loadData: Boolean!
   createPlaylist(playlistInput: CreatePlaylistInput!): Playlist!
-  updatePlaylist(playlistInput: addMoviePlaylistInput!): Playlist!
+  addMoviePlaylist(playlistInput: addMoviePlaylistInput!): Playlist!
   removeMoviePlaylist(playlistInput: DeleteMoviePlaylistInput!): Boolean!
   deletePlaylist(playlistInput: deletePlaylistInput!): Boolean!
+  updatePlaylist(playlistInput: updatePlaylistInput!): Boolean!
 }
 
 input CreateUserInput {
@@ -89,4 +90,10 @@ input DeleteMoviePlaylistInput {
 input deletePlaylistInput {
   idPlaylist: Float!
   idUser: Float!
+}
+
+input updatePlaylistInput {
+  idPlaylist: Float!
+  name: String!
+  usersId: Float!
 }

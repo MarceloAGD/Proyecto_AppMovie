@@ -11,16 +11,14 @@ export class CastsService {
     constructor(
         @InjectRepository(Cast) 
         private castsRepository: Repository<Cast>,
-        private actorsService: ActorsService,
-        private moviesService: MoviesService,
     ){}
 
     async findAll(): Promise<Cast[]> {
         return this.castsRepository.find({relations: ['movie','actor']});
       }
     
-    async findOne(idCast: number): Promise<Cast>{
-        return this.castsRepository.findOne({where:{idCast}, relations:['movie', 'actor']})
+    async findOne(idMovie: number): Promise<Cast>{
+        return this.castsRepository.findOne({where:{movie:{id:idMovie}}, relations:['movie', 'actor']})
     }
     
 }

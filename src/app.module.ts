@@ -7,6 +7,7 @@ import { join } from 'path';
 import { MoviesModule } from './movies/movies.module';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { ConfigModule } from './config/config.module';
+import { ConfigModule as NestConfigModule } from '@nestjs/config'
 import { DatabaseModule } from './database/database.module';
 import { ConfigService } from './config/config.service';
 import { Configuration } from './config/config.keys';
@@ -15,17 +16,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
+    NestConfigModule.forRoot({isGlobal:true}),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'silly.db.elephantsql.com',
       port: 5432,
-      username: 'postgres',
-      password: 'casz',
-      database: 'movieDB',
+      username: 'szayqztc',
+      password: 'ujDtQwXZ_0Vh5gqfDz3zQWIOgQbSOgNI',
+      database: 'szayqztc',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       

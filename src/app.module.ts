@@ -5,7 +5,6 @@ import { join } from 'path';
 import { MoviesModule } from './movies/movies.module';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { ConfigModule } from './config/config.module';
-import { DatabaseModule } from './database/database.module';
 import { ConfigService } from './config/config.service';
 import { Configuration } from './config/config.keys';
 import { UsersModule } from './users/users.module';
@@ -36,7 +35,6 @@ import { CastsModule } from './casts/casts.module';
     CastsModule,
     PlaylistsModule,
     ConfigModule,
-    DatabaseModule,
     
   ],
 })

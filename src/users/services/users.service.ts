@@ -3,8 +3,6 @@ import { Users } from '../entities/users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserInput } from '../dto/create-user.input';
-import { PlaylistsService } from 'src/playlists/services/playlists.service';
-import { Playlist } from 'src/playlists/entities/playlist.entity';
 
 @Injectable()
 export class UsersService {

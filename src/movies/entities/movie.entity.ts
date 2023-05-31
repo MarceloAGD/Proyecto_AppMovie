@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany} from 'typeorm';
 import { ObjectType, Field, Int} from '@nestjs/graphql';
-import { Playlist } from 'src/playlists/entities/playlist.entity';
-import { Cast } from 'src/casts/entities/cast.entity';
+import { Playlist } from '../../playlists/entities/playlist.entity';
+import { Cast } from '../../casts/entities/cast.entity';
 
 @Entity()
 @ObjectType()

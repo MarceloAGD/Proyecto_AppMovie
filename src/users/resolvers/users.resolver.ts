@@ -3,9 +3,6 @@ import { Query , Mutation, Args} from '@nestjs/graphql'
 import { UsersService } from '../services/users.service';
 import { Users } from '../entities/users.entity';
 import { CreateUserInput } from '../dto/create-user.input';
-import { Playlist } from 'src/playlists/entities/playlist.entity';
-import { PlaylistsService } from 'src/playlists/services/playlists.service';
-import { Inject, forwardRef } from '@nestjs/common';
 
 @Resolver(()=> Users)
 export class UsersResolver {

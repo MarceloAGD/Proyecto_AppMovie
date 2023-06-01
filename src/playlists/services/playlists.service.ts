@@ -34,15 +34,12 @@ export class PlaylistsService {
   }
 
   async createPlaylist(playlist: CreatePlaylistInput): Promise<Playlist> {
-    const newPlaylist = new Playlist();
-    newPlaylist.name = playlist.name;
-    newPlaylist.usersId = playlist.usersId;
-
+    const newPlaylist = this.playlistsRepository.create(playlist)
     return this.playlistsRepository.save(newPlaylist);
   }
 
   async addMoviePlaylist(
-    update: update.addMoviePlaylistInput,
+    update: update.MoviePlaylistInput,
   ): Promise<Playlist> {
     const idPlaylist = update.idPlaylist;
     const playlist = await this.playlistsRepository.findOne({
@@ -58,7 +55,7 @@ export class PlaylistsService {
   }
 
   async removeMoviePlaylist(
-    remove: update.DeleteMoviePlaylistInput,
+    remove: update.MoviePlaylistInput,
   ): Promise<boolean> {
     try {
       const playlist = await this.playlistsRepository.findOne({

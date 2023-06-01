@@ -17,7 +17,7 @@ export class PlaylistsResolver {
     }
 
     @Mutation((returns) => Playlist)
-    addMoviePlaylist(@Args('playlistInput') playlistInput: update.addMoviePlaylistInput){
+    addMoviePlaylist(@Args('playlistInput') playlistInput: update.MoviePlaylistInput){
         return this.playlistService.addMoviePlaylist(playlistInput);
     }
 
@@ -37,7 +37,7 @@ export class PlaylistsResolver {
     }
 
     @Mutation(returns => Boolean)
-    removeMoviePlaylist(@Args('playlistInput') playlistInput: update.DeleteMoviePlaylistInput): Promise<boolean>{
+    removeMoviePlaylist(@Args('playlistInput') playlistInput: update.MoviePlaylistInput): Promise<boolean>{
         return this.playlistService.removeMoviePlaylist(playlistInput);
     }
 

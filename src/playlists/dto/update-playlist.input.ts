@@ -2,18 +2,7 @@ import { Field, InputType } from "@nestjs/graphql";
 import { IsInt, IsString } from "class-validator";
 
 @InputType()
-export class addMoviePlaylistInput{
-    @IsInt()
-    @Field()
-    idPlaylist: number;
-
-    @IsInt()
-    @Field()
-    id: number;
-}
-
-@InputType()
-export class DeleteMoviePlaylistInput{   
+export class MoviePlaylistInput{
     @IsInt()
     @Field()
     idPlaylist: number;

@@ -74,7 +74,7 @@ describe('PlaylistsResolver', () => {
 
   describe('addMoviePlaylist', () => {
     it('should call the service method with the correct input', async () => {
-      const playlistInput: update.addMoviePlaylistInput = {
+      const playlistInput: update.MoviePlaylistInput = {
         idPlaylist: 1,
         id: 1,
       };
@@ -206,7 +206,7 @@ describe('PlaylistsResolver', () => {
   });
   describe('removeMoviePlaylist', () => {
     it('should call the service method with the correct input and return the result', async () => {
-      const playlistInput: update.DeleteMoviePlaylistInput = {
+      const playlistInput: update.MoviePlaylistInput = {
         idPlaylist: 1,
         id: 1,
       };

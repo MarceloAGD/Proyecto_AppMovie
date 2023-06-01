@@ -157,8 +157,8 @@ describe('PlaylistsService', () => {
       };
       const newPlaylist: Playlist = {
         idPlaylist: 1,
-        name: 'Test Playlist 1',
-        usersId: 1,
+        name: playlist.name,
+        usersId: playlist.usersId,
         users: {
           id: 1,
           email: 'test@email.com',
@@ -168,6 +168,7 @@ describe('PlaylistsService', () => {
         },
         movies: [],
       };
+      jest.spyOn(playlistsRepository, 'create').mockReturnValue(newPlaylist);
       jest.spyOn(playlistsRepository, 'save').mockResolvedValue(newPlaylist);
 
       const result = await service.createPlaylist(playlist);

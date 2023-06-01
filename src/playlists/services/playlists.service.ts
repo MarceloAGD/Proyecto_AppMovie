@@ -41,9 +41,8 @@ export class PlaylistsService {
   async addMoviePlaylist(
     update: update.MoviePlaylistInput,
   ): Promise<Playlist> {
-    const idPlaylist = update.idPlaylist;
     const playlist = await this.playlistsRepository.findOne({
-      where: { idPlaylist },
+      where: { idPlaylist: update.idPlaylist },
       relations: ['movies'],
     });
     const movie = await this.moviesService.findOne(update.id);

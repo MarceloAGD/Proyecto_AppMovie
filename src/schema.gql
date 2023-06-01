@@ -61,8 +61,8 @@ type Mutation {
   createUser(userInput: CreateUserInput!): Users!
   loadData: Boolean!
   createPlaylist(playlistInput: CreatePlaylistInput!): Playlist!
-  addMoviePlaylist(playlistInput: addMoviePlaylistInput!): Playlist!
-  removeMoviePlaylist(playlistInput: DeleteMoviePlaylistInput!): Boolean!
+  addMoviePlaylist(playlistInput: MoviePlaylistInput!): Playlist!
+  removeMoviePlaylist(playlistInput: MoviePlaylistInput!): Boolean!
   deletePlaylist(playlistInput: deletePlaylistInput!): Boolean!
   updatePlaylist(playlistInput: updatePlaylistInput!): Boolean!
 }
@@ -78,12 +78,7 @@ input CreatePlaylistInput {
   usersId: Float!
 }
 
-input addMoviePlaylistInput {
-  idPlaylist: Float!
-  id: Float!
-}
-
-input DeleteMoviePlaylistInput {
+input MoviePlaylistInput {
   idPlaylist: Float!
   id: Float!
 }

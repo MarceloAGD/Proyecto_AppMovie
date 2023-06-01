@@ -20,7 +20,7 @@ import { CastsModule } from './casts/casts.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'host.docker.internal',
       port: 5432,
       username: 'postgres',
       password: '7211',

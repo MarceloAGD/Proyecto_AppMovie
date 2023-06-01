@@ -50,6 +50,7 @@ type Query {
   Movies: [Movie!]!
   MovieId(id: Float!): Movie!
   Actors: [Actor!]!
+  Actor(idActor: Float!): [Actor!]!
   Casts: [Cast!]!
   Cast(idMovie: Float!): [Cast!]!
   Playlists: [Playlist!]!

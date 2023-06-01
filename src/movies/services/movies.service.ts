@@ -8,20 +8,16 @@ import { CreateNovieInput } from '../dto/create-movie.input';
 import { ActorsService } from '../../actors/services/actors.service';
 import axios from 'axios';
 import { Cast } from '../../casts/entities/cast.entity';
-import { Actor } from '../../actors/entities/actor.entity';
-import { CreateActorInput } from '../../actors/dto/create-actor.input';
 
 @Injectable()
 export class MoviesService {
   constructor(
     @InjectRepository(Movie)
     private movieRepository: Repository<Movie>,
-    @InjectRepository(Actor)
-    private actorsRepository: Repository<Actor>,
     @InjectRepository(Cast)
     private castsRepository: Repository<Cast>,
-
     private actorsService: ActorsService,
+
   ) {}
 
   async findAll(): Promise<Movie[]> {
@@ -37,6 +33,7 @@ export class MoviesService {
   }
 
   private readonly apiKey = 'af1dbaa6b5d12e6c57238078125686d4';
+
   async getDetailMovie(id: number) {
     const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}`;
     const response = await axios.get(url);
@@ -57,12 +54,6 @@ export class MoviesService {
     newMovie.title = createMovieInput.title;
 
     return this.movieRepository.save(newMovie);
-  }
-
-  async addActor(createActor: CreateActorInput): Promise<Actor> {
-    const newActor = this.actorsRepository.create(createActor);
-
-    return this.actorsRepository.save(newActor);
   }
 
   async addActorCast(
@@ -96,18 +87,13 @@ export class MoviesService {
         const movieExist = await this.findOne(movie.id);
 
         if (!movieExist) {
-          const movieData = this.getDetailMovie(movie.id);
-          const creditData = this.getCreditMovie(movie.id);
-
-          const moviesDetail = await movieData;
-          const creditDetail = await creditData;
-
-          await this.insertMovie(moviesDetail);
-
-          const castData = creditDetail.cast;
+          const movieData = await this.getDetailMovie(movie.id);
+          const creditData = await this.getCreditMovie(movie.id);
+          await this.insertMovie(movieData);
+          const castData = creditData.cast;
 
           for (const data of castData) {
-            await this.addActor(data);
+            await this.actorsService.addActor(data);
             await this.addActorCast(
               data.id,
               movie.id,

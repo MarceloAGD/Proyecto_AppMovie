@@ -35,7 +35,6 @@ import { CastsModule } from './casts/casts.module';
     CastsModule,
     PlaylistsModule,
     ConfigModule,
-    
   ],
 })
 export class AppModule {

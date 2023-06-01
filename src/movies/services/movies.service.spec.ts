@@ -125,20 +125,6 @@ describe('MoviesService', () => {
       expect(result).toEqual(newMovie);
     });
   });
-  describe('addActor', () => {
-    it('should add a new actor', async () => {
-      const actor: CreateActorInput = { id: 1, name: 'Actor 1' };
-      const newActor: Actor = { id: 1, name: 'Actor 1' };
-      jest.spyOn(actorsRepository, 'create').mockReturnValue(newActor);
-      jest.spyOn(actorsRepository, 'save').mockResolvedValue(newActor);
-  
-      const result = await service.addActor(actor);
-  
-      expect(actorsRepository.create).toHaveBeenCalledWith(actor);
-      expect(actorsRepository.save).toHaveBeenCalledWith(newActor);
-      expect(result).toEqual(newActor);
-    });
-  });
   
   describe('addActorCast', () => {
     it('should add a new cast', async () => {
